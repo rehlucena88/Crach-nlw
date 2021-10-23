@@ -10,9 +10,25 @@ const linksSocialMedia = {
 function changeSocialMediaLinks(){
   for (let li of socialLinks.children){
     const social = li.getAttribute('class') /* a const dente de uma funçao só existe por escopo por isso ela é mutavel enquanto o for existir ela axiste */
-  li.children[0].href = `https://${social}.com/${linksSocialMedia[social]}`
-  alert(li.children[0].href)
+  li.children[0].href = `https://${social}.com/${linksSocialMedia[social]}`  
   }
 }
 
 changeSocialMediaLinks()
+
+function getGitHubProfileInfos(){
+   const url = `https://api.github.com/users/${linksSocialMedia.github}`
+    
+    fetch(url) /*o fetch pega a informaçao como um objeto*/
+     .then(response => response.json() ) /*esse then transforma as inforçoes em jason*/
+     .then(data =>  {
+         userName.textContent = data.name
+         userBio.textContent = data.bio
+         userLink.href = data.html_url
+         userPhoto.src = data.avatar_url
+         userLogin.textContent = data.login
+     }) /**/
+    
+}
+
+getGitHubProfileInfos()
